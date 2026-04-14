@@ -863,8 +863,9 @@ function launchAgent(agent) {
 }
 
 document.getElementById('input-name').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && userProfile.name || document.getElementById('input-name').value.trim()) {
-    if (!document.getElementById('next-1').disabled) nextStep();
+  if (e.key === 'Enter' && !document.getElementById('next-1').disabled) {
+    e.preventDefault();
+    nextStep();
   }
 });
 
