@@ -2042,56 +2042,67 @@ function pickVoice() {
 function doSpeak(idx, agentName) {
   const synth = window.speechSynthesis;
   const text = stripMarkdown(conversations[activeAgent][idx].content);
+  const utterance = new SpeechSynthesisUtterance(text);
 
-  // Chrome bug fix: cancel + small delay before speaking
-  synth.cancel();
+  utterance.rate = voiceRate;
+  utterance.pitch = voicePitch;
+  utterance.volume = 1.0;
+  utterance.lang = selectedAccent;
 
-  setTimeout(() => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = voiceRate;
-    utterance.pitch = voicePitch;
-    utterance.volume = 1.0;
-    utterance.lang = selectedAccent;
+  loadVoices();
+  const voice = pickVoice();
+  if (voice) utterance.voice = voice;
 
-    loadVoices();
-    const voice = pickVoice();
-    if (voice) utterance.voice = voice;
+  speakingMsgIndex = idx;
+  speakingAgent = activeAgent;
+  renderMessages();
+  startWaveform();
+  updateNowPlaying(true, `${agentName} · ${selectedAccent}`);
+  updateStopBtn(true);
+  document.getElementById('voice-panel-btn').classList.add('active');
 
-    speakingMsgIndex = idx;
-    speakingAgent = activeAgent;
+  utterance.onend = () => {
+    speakingMsgIndex = null; speakingAgent = null;
+    stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
+    document.getElementById('voice-panel-btn').classList.remove('active');
     renderMessages();
-    startWaveform();
-    updateNowPlaying(true, `${agentName} · ${selectedAccent}`);
-    updateStopBtn(true);
-    document.getElementById('voice-panel-btn').classList.add('active');
+  };
 
-    utterance.onend = () => {
-      speakingMsgIndex = null; speakingAgent = null;
-      stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
-      document.getElementById('voice-panel-btn').classList.remove('active');
-      renderMessages();
-    };
-    utterance.onerror = (e) => {
-      console.warn('TTS error:', e.error);
-      speakingMsgIndex = null; speakingAgent = null;
-      stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
-      document.getElementById('voice-panel-btn').classList.remove('active');
-      renderMessages();
-    };
+  utterance.onerror = (e) => {
+    console.warn('TTS error:', e.error);
+    speakingMsgIndex = null; speakingAgent = null;
+    stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
+    document.getElementById('voice-panel-btn').classList.remove('active');
+    renderMessages();
+  };
 
-    synth.speak(utterance);
-
-    // Chrome workaround: resume if paused
-    setTimeout(() => { if (synth.paused) synth.resume(); }, 50);
-  }, 300);
+  synth.speak(utterance);
+  setTimeout(() => { if (synth.paused) synth.resume(); }, 50);
 }
 
 function speakMessage(idx) {
-  if (speakingMsgIndex === idx && speakingAgent === activeAgent) { stopSpeech(); return; }
-  stopSpeech();
+  if (speakingMsgIndex === idx && speakingAgent === activeAgent) {
+    window.speechSynthesis.cancel();
+    speakingMsgIndex = null;
+    speakingAgent = null;
+    stopWaveform();
+    updateNowPlaying(false);
+    updateStopBtn(false);
+    document.getElementById('voice-panel-btn').classList.remove('active');
+    renderMessages();
+    return;
+  }
+
+  // Silently cancel without triggering stopSpeech chain
+  window.speechSynthesis.cancel();
+  speakingMsgIndex = null;
+  speakingAgent = null;
+
   const agentName = AGENTS[activeAgent].name;
   loadVoices();
-  doSpeak(idx, agentName);
+
+  // Wait for cancel to fully clear before speaking
+  setTimeout(() => doSpeak(idx, agentName), 300);
 }
 
 // Init idle waveform
