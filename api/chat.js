@@ -58,11 +58,18 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system,
-        messages: trimmedMessages
-      })
+  model: 'claude-sonnet-4-20250514',
+  max_tokens: 1000,
+  system,
+  messages: trimmedMessages,
+  tools: [
+    {
+      type: 'web_search_20250305',
+      name: 'web_search',
+      max_uses: 5
+    }
+  ]
+})
     });
 
     if (!response.ok) {
@@ -72,7 +79,7 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    const reply = data.content?.map(b => b.text || '').join('') || '';
+    const reply = data.content?.filter(b => b.type === 'text').map(b => b.text || '').join('') || '';
 
     if (!reply) {
       return res.status(502).json({ error: 'Empty response from AI. Please try again.' });
