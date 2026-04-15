@@ -714,12 +714,198 @@
   .vibe-col { color: var(--vibe); }
   .flux-col { color: var(--flux); }
   .pulse-col { color: var(--pulse); }
+
+  /* ── AUTH SCREEN ── */
+  .auth-screen {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.4s ease;
+  }
+  .auth-screen.exit { opacity: 0; pointer-events: none; }
+
+  .auth-card {
+    width: 100%; max-width: 420px; padding: 0 24px;
+  }
+  .auth-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px;
+    letter-spacing: 0.25em; color: var(--muted);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+  }
+  .auth-logo span { color: var(--nova); }
+
+  .auth-tabs {
+    display: flex; gap: 4px; margin-bottom: 28px;
+    background: var(--surface2); border-radius: 10px; padding: 4px;
+  }
+  .auth-tab {
+    flex: 1; padding: 8px; border-radius: 7px; border: none;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    background: transparent; color: var(--muted); transition: all 0.2s;
+  }
+  .auth-tab.active { background: var(--surface); color: var(--text); }
+
+  .auth-panel { display: none; }
+  .auth-panel.active { display: block; }
+
+  .auth-field {
+    margin-bottom: 12px;
+  }
+  .auth-field label {
+    display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .auth-input {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border-bright);
+    border-radius: 10px; padding: 13px 16px;
+    font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text);
+    outline: none; transition: border-color 0.2s; letter-spacing: 0.02em;
+  }
+  .auth-input:focus { border-color: rgba(0,229,255,0.4); }
+  .auth-input::placeholder { color: var(--muted); }
+
+  .auth-btn {
+    width: 100%; margin-top: 8px; padding: 14px;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg);
+    background: var(--nova); border: none; border-radius: 10px;
+    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .auth-btn:hover { background: #33eaff; transform: translateY(-1px); }
+
+  .auth-google-btn {
+    width: 100%; margin-bottom: 16px; padding: 13px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 0.06em; color: var(--text);
+    background: var(--surface2); border: 1px solid var(--border-bright);
+    border-radius: 10px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .auth-google-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.25); }
+
+  .auth-divider {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    font-size: 10px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .auth-guest {
+    text-align: center; margin-top: 20px;
+    font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+  }
+  .auth-guest button {
+    background: none; border: none; color: var(--nova); cursor: pointer;
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.04em;
+    text-decoration: underline; text-underline-offset: 3px; padding: 0;
+  }
+  .auth-guest button:hover { color: #33eaff; }
+
+  /* ── ONBOARDING CHOICE SCREEN ── */
+  .onboard-choice {
+    display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;
+  }
+  .choice-card {
+    padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px;
+    background: var(--surface); cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .choice-card:hover { border-color: var(--border-bright); background: var(--surface2); }
+  .choice-card.nova-choice:hover { border-color: rgba(0,229,255,0.3); }
+  .choice-icon { font-size: 22px; flex-shrink: 0; }
+  .choice-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+    color: var(--text); margin-bottom: 3px;
+  }
+  .choice-desc { font-size: 11px; color: var(--muted); letter-spacing: 0.03em; }
+  .choice-arrow { margin-left: auto; color: var(--muted); font-size: 16px; opacity: 0.4; transition: all 0.15s; }
+  .choice-card:hover .choice-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+  /* Quick start name input */
+  .quick-start-wrap { display: flex; flex-direction: column; gap: 12px; }
+  .quick-agent-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .qa-card {
+    padding: 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: var(--surface); cursor: pointer; transition: all 0.15s;
+    text-align: center;
+  }
+  .qa-card:hover { transform: translateY(-1px); }
+  .qa-card.nova { border-color: rgba(0,229,255,0.2); }
+  .qa-card.nova:hover { background: var(--nova-bg); border-color: rgba(0,229,255,0.4); }
+  .qa-card.vibe { border-color: rgba(255,107,157,0.2); }
+  .qa-card.vibe:hover { background: var(--vibe-bg); border-color: rgba(255,107,157,0.4); }
+  .qa-card.flux { border-color: rgba(127,255,110,0.2); }
+  .qa-card.flux:hover { background: var(--flux-bg); border-color: rgba(127,255,110,0.4); }
+  .qa-card.pulse { border-color: rgba(255,184,48,0.2); }
+  .qa-card.pulse:hover { background: var(--pulse-bg); border-color: rgba(255,184,48,0.4); }
+  .qa-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .qa-role { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
 </style>
 </head>
 <body>
 
+<!-- ═══ AUTH SCREEN ═══ -->
+<div class="auth-screen" id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo"><span>◈</span> ORBIT AI AGENCY</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login', this)">Log In</button>
+      <button class="auth-tab" onclick="switchAuthTab('signup', this)">Sign Up</button>
+    </div>
+
+    <!-- Login panel -->
+    <div class="auth-panel active" id="auth-login">
+      <button class="auth-google-btn" onclick="handleGoogleAuth()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div class="auth-divider">or</div>
+      <div class="auth-field">
+        <label>Email</label>
+        <input class="auth-input" type="email" id="login-email" placeholder="you@example.com">
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <input class="auth-input" type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <button class="auth-btn" onclick="handleEmailLogin()">Log In →</button>
+    </div>
+
+    <!-- Signup panel -->
+    <div class="auth-panel" id="auth-signup">
+      <button class="auth-google-btn" onclick="handleGoogleAuth()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Sign Up with Google
+      </button>
+      <div class="auth-divider">or</div>
+      <div class="auth-field">
+        <label>Username</label>
+        <input class="auth-input" type="text" id="signup-username" placeholder="yourname">
+      </div>
+      <div class="auth-field">
+        <label>Email</label>
+        <input class="auth-input" type="email" id="signup-email" placeholder="you@example.com">
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <input class="auth-input" type="password" id="signup-password" placeholder="••••••••">
+      </div>
+      <button class="auth-btn" onclick="handleEmailSignup()">Create Account →</button>
+    </div>
+
+    <div class="auth-guest">
+      Just exploring? <button onclick="skipAuth()">Continue without account →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ ONBOARDING ═══ -->
-<div id="onboarding-overlay">
+<div id="onboarding-overlay" style="display:none;">
   <div class="quiz-wrap">
 
     <div class="quiz-progress" id="quiz-progress">
@@ -730,25 +916,60 @@
       <div class="qp-seg"><div class="qp-seg-fill"></div></div>
     </div>
 
-    <!-- STEP 0: Welcome -->
+    <!-- STEP 0: Choose path -->
     <div class="quiz-step visible" id="step-0">
-      <div class="welcome-step">
-        <div class="orbit-logo-big"><span class="orbit-mark">◈</span> ORBIT AI AGENCY</div>
-        <div>
-          <div class="welcome-title">Your growth team<br>just <em>arrived.</em></div>
-          <p class="welcome-sub" style="margin-top:12px">Four AI agents — strategy, content, analytics, paid ads — all working for you. Let's set up your profile so they can hit the ground running.</p>
+      <div class="orbit-logo-big" style="margin-bottom:28px"><span class="orbit-mark">◈</span> ORBIT AI AGENCY</div>
+      <div class="quiz-q" style="margin-bottom:8px">How do you want to start?</div>
+      <div class="quiz-sub">You can always change your setup later.</div>
+      <div class="onboard-choice">
+        <div class="choice-card nova-choice" onclick="nextStep()">
+          <div class="choice-icon">🚀</div>
+          <div>
+            <div class="choice-title">Full Setup</div>
+            <div class="choice-desc">Answer 4 quick questions so agents know exactly who you are</div>
+          </div>
+          <div class="choice-arrow">↗</div>
         </div>
-        <div class="welcome-agents">
-          <div class="wa-chip nova">NOVA</div>
-          <div class="wa-chip vibe">VIBE</div>
-          <div class="wa-chip flux">FLUX</div>
-          <div class="wa-chip pulse">PULSE</div>
+        <div class="choice-card" onclick="showQuickStart()">
+          <div class="choice-icon">⚡</div>
+          <div>
+            <div class="choice-title">Quick Start</div>
+            <div class="choice-desc">Just enter your name and pick an agent — go in 10 seconds</div>
+          </div>
+          <div class="choice-arrow">↗</div>
         </div>
-        <button class="start-btn" onclick="nextStep()">
-          Set Up My Profile
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </button>
-        <div style="font-size:10px;color:var(--muted);letter-spacing:0.08em">Takes 60 seconds · No account needed</div>
+      </div>
+    </div>
+
+    <!-- STEP 0b: Quick Start -->
+    <div class="quiz-step" id="step-quick">
+      <div class="quiz-eyebrow">Quick Start</div>
+      <div class="quiz-q">What should we call you?</div>
+      <div class="quiz-sub">Pick a name and jump straight in.</div>
+      <div class="quick-start-wrap">
+        <input type="text" class="quiz-text-input" id="quick-name" placeholder="Your name or artist name..." maxlength="40" oninput="checkQuickValid()" style="margin-bottom:0">
+        <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px;">Choose your first agent</div>
+        <div class="quick-agent-grid">
+          <div class="qa-card nova" onclick="quickLaunch('nova')">
+            <div class="qa-name nova-col">NOVA</div>
+            <div class="qa-role">Growth Strategist</div>
+          </div>
+          <div class="qa-card vibe" onclick="quickLaunch('vibe')">
+            <div class="qa-name vibe-col">VIBE</div>
+            <div class="qa-role">Content Creator</div>
+          </div>
+          <div class="qa-card flux" onclick="quickLaunch('flux')">
+            <div class="qa-name flux-col">FLUX</div>
+            <div class="qa-role">Analytics Advisor</div>
+          </div>
+          <div class="qa-card pulse" onclick="quickLaunch('pulse')">
+            <div class="qa-name pulse-col">PULSE</div>
+            <div class="qa-role">Paid Growth Agent</div>
+          </div>
+        </div>
+        <div class="quiz-nav" style="margin-top:8px">
+          <button class="quiz-back" onclick="showStep(0)">← Back</button>
+        </div>
       </div>
     </div>
 
@@ -759,7 +980,7 @@
       <div class="quiz-sub">Your agents will use this to personalize every response.</div>
       <input type="text" class="quiz-text-input" id="input-name" placeholder="Your name or artist name..." maxlength="40" oninput="checkNameValid()">
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">← Back</button>
+        <button class="quiz-back" onclick="showStep(0)">← Back</button>
         <button class="quiz-next" id="next-1" onclick="nextStep()" disabled>
           Continue <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
@@ -998,7 +1219,82 @@ let isLoading = false;
 let activeAgent = 'nova';
 let conversations = { nova: [], vibe: [], flux: [], pulse: [] };
 
+// ── AUTH ──
+function switchAuthTab(tab, btn) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('auth-' + tab).classList.add('active');
+}
+
+function handleGoogleAuth() {
+  // Placeholder — wire up Firebase/Supabase Google OAuth here
+  alert('Google auth coming soon! For now, continue as guest.');
+}
+
+function handleEmailLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-password').value;
+  if (!email || !pass) { alert('Please enter your email and password.'); return; }
+  // Placeholder — wire up your auth backend here
+  userProfile.name = email.split('@')[0];
+  showOnboarding();
+}
+
+function handleEmailSignup() {
+  const username = document.getElementById('signup-username').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const pass = document.getElementById('signup-password').value;
+  if (!username || !email || !pass) { alert('Please fill in all fields.'); return; }
+  // Placeholder — wire up your auth backend here
+  userProfile.name = username;
+  showOnboarding();
+}
+
+function skipAuth() {
+  showOnboarding();
+}
+
+function showOnboarding() {
+  const auth = document.getElementById('auth-screen');
+  auth.classList.add('exit');
+  setTimeout(() => {
+    auth.style.display = 'none';
+    const ob = document.getElementById('onboarding-overlay');
+    ob.style.display = 'flex';
+    ob.style.alignItems = 'center';
+    ob.style.justifyContent = 'center';
+    ob.style.position = 'fixed';
+    ob.style.inset = '0';
+    ob.style.zIndex = '100';
+    ob.style.background = 'var(--bg)';
+  }, 400);
+}
+
 // ── QUIZ ──
+function showQuickStart() {
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('visible'));
+  document.getElementById('step-quick').classList.add('visible');
+}
+
+function checkQuickValid() {
+  // Cards become clickable when name is typed — handled by quickLaunch check
+}
+
+function quickLaunch(agent) {
+  const name = document.getElementById('quick-name').value.trim();
+  if (!name) {
+    document.getElementById('quick-name').focus();
+    document.getElementById('quick-name').style.borderColor = 'rgba(255,107,157,0.5)';
+    setTimeout(() => document.getElementById('quick-name').style.borderColor = '', 1500);
+    return;
+  }
+  userProfile.name = name;
+  userProfile.platform = 'any platform';
+  userProfile.niche = 'creator';
+  userProfile.goal = 'grow my audience';
+  launchAgent(agent);
+}
 function updateProgress(step) {
   const segs = document.querySelectorAll('.qp-seg');
   segs.forEach((s, i) => {
@@ -1053,9 +1349,12 @@ function launchAgent(agent) {
   document.getElementById('uc-details').textContent = `${userProfile.platform} · ${userProfile.niche}`;
   document.getElementById('user-card').style.display = 'block';
 
+  // Hide whichever screen is visible
+  const authScreen = document.getElementById('auth-screen');
   const overlay = document.getElementById('onboarding-overlay');
+  authScreen.style.display = 'none';
   overlay.classList.add('exit');
-  setTimeout(() => overlay.style.display = 'none', 500);
+  setTimeout(() => { overlay.style.display = 'none'; }, 500);
 
   document.getElementById('app').classList.add('visible');
   switchAgent(agent);
@@ -1267,7 +1566,7 @@ function renderMessages() {
       <div class="msg-body">
         <div class="msg-bubble">${formatMsg(m.content)}</div>
         <div class="msg-actions">
-          <button class="speak-btn ${isPlaying ? 'playing' : ''}" onclick="speakMessage(${i}, this)">
+          <button class="speak-btn ${isPlaying ? 'playing' : ''}" onclick="speakMessage(${i})">
             ${isPlaying
               ? `<div class="sb-bars"><div class="sb-bar"></div><div class="sb-bar"></div><div class="sb-bar"></div><div class="sb-bar"></div></div> Stop`
               : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg> Speak`}
@@ -1537,84 +1836,86 @@ function updateStopBtn(playing) {
   btn.className = 'vm-stop-btn' + (playing ? ' playing' : '');
 }
 
-// ── Speak ──
-function speakMessage(idx, btn) {
+// ── Voice loading (Chrome loads async) ──
+let voicesReady = false;
+let voicesList = [];
+
+function loadVoices() {
+  const v = window.speechSynthesis.getVoices();
+  if (v.length > 0) { voicesList = v; voicesReady = true; }
+}
+loadVoices();
+if (typeof window.speechSynthesis.onvoiceschanged !== 'undefined') {
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function pickVoice() {
+  const voices = voicesList.length ? voicesList : window.speechSynthesis.getVoices();
+  return voices.find(v => v.lang === selectedAccent && v.localService)
+    || voices.find(v => v.lang === selectedAccent)
+    || voices.find(v => v.lang.startsWith(selectedAccent.split('-')[0]) && v.localService)
+    || voices.find(v => v.lang.startsWith(selectedAccent.split('-')[0]))
+    || voices.find(v => v.lang.startsWith('en'))
+    || voices[0];
+}
+
+function doSpeak(idx, agentName) {
   const synth = window.speechSynthesis;
+  const text = stripMarkdown(conversations[activeAgent][idx].content);
 
-  // Toggle off if same message
-  if (speakingMsgIndex === idx && speakingAgent === activeAgent) {
-    stopSpeech();
-    return;
-  }
+  // Chrome bug fix: cancel + small delay before speaking
+  synth.cancel();
 
+  setTimeout(() => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = voiceRate;
+    utterance.pitch = voicePitch;
+    utterance.volume = 1.0;
+    utterance.lang = selectedAccent;
+
+    loadVoices();
+    const voice = pickVoice();
+    if (voice) utterance.voice = voice;
+
+    speakingMsgIndex = idx;
+    speakingAgent = activeAgent;
+    renderMessages();
+    startWaveform();
+    updateNowPlaying(true, `${agentName} · ${selectedAccent}`);
+    updateStopBtn(true);
+    document.getElementById('voice-panel-btn').classList.add('active');
+
+    utterance.onend = () => {
+      speakingMsgIndex = null; speakingAgent = null;
+      stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
+      document.getElementById('voice-panel-btn').classList.remove('active');
+      renderMessages();
+    };
+    utterance.onerror = (e) => {
+      console.warn('TTS error:', e.error);
+      speakingMsgIndex = null; speakingAgent = null;
+      stopWaveform(); updateNowPlaying(false); updateStopBtn(false);
+      document.getElementById('voice-panel-btn').classList.remove('active');
+      renderMessages();
+    };
+
+    synth.speak(utterance);
+
+    // Chrome workaround: resume if paused
+    if (synth.paused) synth.resume();
+  }, 150);
+}
+
+function speakMessage(idx) {
+  if (speakingMsgIndex === idx && speakingAgent === activeAgent) { stopSpeech(); return; }
   stopSpeech();
-
-  const rawText = conversations[activeAgent][idx].content;
-  const text = stripMarkdown(rawText);
   const agentName = AGENTS[activeAgent].name;
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = voiceRate;
-  utterance.pitch = voicePitch;
-  utterance.volume = 1.0;
-
-  // Voice selection — prioritise local system voices for the accent
-  function pickVoice() {
-    const voices = synth.getVoices();
-    return voices.find(v => v.lang === selectedAccent && v.localService)
-      || voices.find(v => v.lang === selectedAccent)
-      || voices.find(v => v.lang.startsWith(selectedAccent.split('-')[0]) && v.localService)
-      || voices.find(v => v.lang.startsWith(selectedAccent.split('-')[0]))
-      || voices.find(v => v.lang.startsWith('en'))
-      || voices[0];
-  }
-
-  // Voices may not be loaded yet
-  const chosenVoice = pickVoice();
-  if (chosenVoice) utterance.voice = chosenVoice;
-
-  speakingMsgIndex = idx;
-  speakingAgent = activeAgent;
-
-  // Update UI
-  renderMessages();
-  startWaveform();
-  updateNowPlaying(true, `${agentName} · ${selectedAccent}`);
-  updateStopBtn(true);
-  document.getElementById('voice-panel-btn').classList.add('active');
-
-  utterance.onend = () => {
-    speakingMsgIndex = null;
-    speakingAgent = null;
-    stopWaveform();
-    updateNowPlaying(false);
-    updateStopBtn(false);
-    document.getElementById('voice-panel-btn').classList.remove('active');
-    renderMessages();
-  };
-
-  utterance.onerror = () => {
-    speakingMsgIndex = null;
-    speakingAgent = null;
-    stopWaveform();
-    updateNowPlaying(false);
-    updateStopBtn(false);
-    document.getElementById('voice-panel-btn').classList.remove('active');
-    renderMessages();
-  };
-
-  synth.speak(utterance);
+  loadVoices();
+  doSpeak(idx, agentName);
 }
 
-// Load voices (Chrome loads them async)
-if (window.speechSynthesis.onvoiceschanged !== undefined) {
-  window.speechSynthesis.onvoiceschanged = () => {};
-}
-
-// Init idle waveform when modal first opens
-window.addEventListener('load', () => {
-  setTimeout(() => drawWaveform(false), 300);
-});
+// Init idle waveform
+window.addEventListener('load', () => { setTimeout(() => drawWaveform(false), 300); });
 </script>
 
 <!-- ═══ VOICE MODAL ═══ -->
