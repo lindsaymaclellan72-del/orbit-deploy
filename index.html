@@ -715,7 +715,120 @@
   .flux-col { color: var(--flux); }
   .pulse-col { color: var(--pulse); }
 
-  /* ── AUTH SCREEN ── */
+  /* ── USAGE BAR ── */
+  .usage-bar-wrap {
+    margin: 0 12px 12px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .usage-bar-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 7px;
+  }
+  .usage-plan-name {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--nova);
+  }
+  #usage-label {
+    font-size: 9px; letter-spacing: 0.08em; color: var(--muted);
+  }
+  .usage-track {
+    height: 3px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden;
+  }
+  #usage-bar-fill {
+    height: 100%; width: 0%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--nova), #33eaff);
+    transition: width 0.4s ease;
+  }
+  .upgrade-btn {
+    width: 100%; margin-top: 8px; padding: 7px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--bg); background: var(--nova); border: none;
+    border-radius: 6px; cursor: pointer; transition: all 0.15s;
+  }
+  .upgrade-btn:hover { background: #33eaff; }
+
+  /* ── PAYWALL MODAL ── */
+  .paywall-backdrop {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(7,7,8,0.85); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .paywall-backdrop.open { opacity: 1; pointer-events: all; }
+
+  .paywall-card {
+    background: #0e1117; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 40px 32px; max-width: 680px; width: 100%;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .paywall-backdrop.open .paywall-card { transform: translateY(0) scale(1); }
+
+  .paywall-header { text-align: center; margin-bottom: 32px; }
+  .paywall-icon { font-size: 32px; margin-bottom: 12px; }
+  .paywall-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px;
+    letter-spacing: -0.01em; margin-bottom: 8px;
+  }
+  .paywall-sub { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .plans-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+  }
+  .plan-card {
+    border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px 16px; cursor: pointer; transition: all 0.2s; text-align: center;
+    background: var(--surface); position: relative;
+  }
+  .plan-card:hover { border-color: var(--nova); background: rgba(0,229,255,0.04); transform: translateY(-2px); }
+  .plan-card.featured { border-color: var(--nova); background: rgba(0,229,255,0.06); }
+  .plan-badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--nova); color: var(--bg); font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .plan-price {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px;
+    letter-spacing: -0.02em; color: var(--text); line-height: 1;
+  }
+  .plan-price sup { font-size: 14px; vertical-align: super; }
+  .plan-period { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; margin: 4px 0 12px; }
+  .plan-features { list-style: none; text-align: left; }
+  .plan-features li {
+    font-size: 11px; color: var(--muted); padding: 4px 0;
+    display: flex; align-items: center; gap: 7px; letter-spacing: 0.02em;
+  }
+  .plan-features li::before { content: '◈'; color: var(--nova); font-size: 8px; flex-shrink: 0; }
+  .plan-select-btn {
+    width: 100%; margin-top: 14px; padding: 10px;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .plan-card.featured .plan-select-btn {
+    background: var(--nova); color: var(--bg); border-color: var(--nova);
+  }
+  .plan-card:hover .plan-select-btn { border-color: var(--nova); color: var(--nova); }
+  .plan-card.featured:hover .plan-select-btn { background: #33eaff; }
+
+  .paywall-close {
+    display: block; width: 100%; padding: 10px; background: transparent;
+    border: none; color: var(--muted); font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; cursor: pointer; text-align: center;
+    transition: color 0.15s;
+  }
+  .paywall-close:hover { color: var(--text); }
   .auth-screen {
     position: fixed; inset: 0; z-index: 200;
     background: var(--bg);
@@ -1174,6 +1287,14 @@
       <div class="status-dot"></div>
     </div>
     <div class="sidebar-footer">ORBIT © 2026 — ALL AGENTS ONLINE</div>
+    <div class="usage-bar-wrap">
+      <div class="usage-bar-top">
+        <span class="usage-plan-name" id="usage-plan-name">Free Plan</span>
+        <span id="usage-label">10 messages left</span>
+      </div>
+      <div class="usage-track"><div id="usage-bar-fill"></div></div>
+      <button class="upgrade-btn" onclick="showPaywall()">⚡ Upgrade Plan</button>
+    </div>
   </div>
 
   <div class="chat-area">
@@ -1359,6 +1480,7 @@ function launchAgent(agent) {
   document.getElementById('app').classList.add('visible');
   switchAgent(agent);
   fireOpeningMessage(agent);
+  updateUsageBar();
 }
 
 document.getElementById('input-name').addEventListener('keydown', e => {
@@ -1626,6 +1748,13 @@ async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
+  // Check message limit
+  const { blocked, used, limit } = checkLimit();
+  if (blocked) {
+    showPaywall();
+    return;
+  }
+
   input.value = '';
   input.style.height = 'auto';
   isLoading = true;
@@ -1662,7 +1791,58 @@ async function sendMessage() {
   renderMessages();
   isLoading = false;
   document.getElementById('send-btn').disabled = false;
+  updateUsageBar();
   input.focus();
+}
+
+// ══════════════════════════════════════════
+// PRICING & LIMITS
+// ══════════════════════════════════════════
+const PLANS = {
+  free:    { name: 'Free',       limit: 10,   price: 0   },
+  starter: { name: 'Starter',   limit: 100,  price: 29  },
+  pro:     { name: 'Pro',       limit: 500,  price: 79  },
+  agency:  { name: 'Agency',   limit: 99999, price: 149 }
+};
+
+let currentPlan = 'free';
+let totalMessages = parseInt(localStorage.getItem('orbit_msgs') || '0');
+
+function getTotalMessages() {
+  return Object.values(conversations).reduce((sum, msgs) => sum + msgs.filter(m => m.role === 'user').length, 0);
+}
+
+function checkLimit() {
+  const used = getTotalMessages();
+  const limit = PLANS[currentPlan].limit;
+  return { used, limit, remaining: limit - used, blocked: used >= limit };
+}
+
+function updateUsageBar() {
+  const { used, limit, remaining } = checkLimit();
+  const pct = Math.min((used / limit) * 100, 100);
+  const bar = document.getElementById('usage-bar-fill');
+  const label = document.getElementById('usage-label');
+  if (bar) bar.style.width = pct + '%';
+  if (label) label.textContent = currentPlan === 'agency'
+    ? 'Unlimited'
+    : `${remaining} message${remaining !== 1 ? 's' : ''} left`;
+}
+
+function showPaywall() {
+  document.getElementById('paywall-modal').classList.add('open');
+}
+
+function closePaywall() {
+  document.getElementById('paywall-modal').classList.remove('open');
+}
+
+function selectPlan(plan) {
+  // Placeholder — wire up Stripe here
+  currentPlan = plan;
+  closePaywall();
+  updateUsageBar();
+  alert(`✅ ${PLANS[plan].name} plan activated! (Connect Stripe to charge $${PLANS[plan].price}/mo)`);
 }
 
 // ══════════════════════════════════════════
@@ -1902,8 +2082,8 @@ function doSpeak(idx, agentName) {
     synth.speak(utterance);
 
     // Chrome workaround: resume if paused
-    if (synth.paused) synth.resume();
-  }, 150);
+    setTimeout(() => { if (synth.paused) synth.resume(); }, 50);
+  }, 300);
 }
 
 function speakMessage(idx) {
@@ -1917,6 +2097,66 @@ function speakMessage(idx) {
 // Init idle waveform
 window.addEventListener('load', () => { setTimeout(() => drawWaveform(false), 300); });
 </script>
+
+<!-- ═══ PAYWALL MODAL ═══ -->
+<div class="paywall-backdrop" id="paywall-modal">
+  <div class="paywall-card">
+    <div class="paywall-header">
+      <div class="paywall-icon">⚡</div>
+      <div class="paywall-title">You've used your free messages</div>
+      <p class="paywall-sub">Upgrade to keep chatting with your agents. Cancel anytime.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Starter -->
+      <div class="plan-card" onclick="selectPlan('starter')">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>$</sup>29</div>
+        <div class="plan-period">/ month</div>
+        <ul class="plan-features">
+          <li>100 messages / mo</li>
+          <li>All 4 agents</li>
+          <li>Voice playback</li>
+          <li>3 platforms</li>
+        </ul>
+        <button class="plan-select-btn">Get Starter</button>
+      </div>
+
+      <!-- Pro (featured) -->
+      <div class="plan-card featured" onclick="selectPlan('pro')">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><sup>$</sup>79</div>
+        <div class="plan-period">/ month</div>
+        <ul class="plan-features">
+          <li>500 messages / mo</li>
+          <li>All 4 agents</li>
+          <li>Voice + accents</li>
+          <li>All platforms</li>
+          <li>Priority responses</li>
+        </ul>
+        <button class="plan-select-btn">Get Pro</button>
+      </div>
+
+      <!-- Agency -->
+      <div class="plan-card" onclick="selectPlan('agency')">
+        <div class="plan-name">Agency</div>
+        <div class="plan-price"><sup>$</sup>149</div>
+        <div class="plan-period">/ month</div>
+        <ul class="plan-features">
+          <li>Unlimited messages</li>
+          <li>All 4 agents</li>
+          <li>White-label ready</li>
+          <li>15 client profiles</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="plan-select-btn">Get Agency</button>
+      </div>
+    </div>
+
+    <button class="paywall-close" onclick="closePaywall()">Maybe later — I'll stay on Free</button>
+  </div>
+</div>
 
 <!-- ═══ VOICE MODAL ═══ -->
 <div class="voice-modal-backdrop" id="voice-modal-backdrop" onclick="handleBackdropClick(event)">
