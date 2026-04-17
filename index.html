@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORBIT — AI Agents</title>
+<title>ORBIT — AI Agents for Creators</title>
+<meta name="description" content="ORBIT AI Agency — 4 specialized AI agents (NOVA, VIBE, FLUX, PULSE) to grow your social media, create viral content, decode analytics, and scale paid campaigns.">
+<meta property="og:title" content="ORBIT — AI Agents for Creators">
+<meta property="og:description" content="Your personal AI growth team. NOVA, VIBE, FLUX, and PULSE — 4 specialized agents built for creators and brands.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://orbitaiagency.ca">
+<meta property="og:image" content="https://orbitaiagency.ca/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ORBIT — AI Agents for Creators">
+<meta name="twitter:description" content="4 specialized AI agents to grow your audience, create viral content, decode analytics & scale ads.">
+<meta name="theme-color" content="#080a0f">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 
@@ -1027,9 +1037,194 @@
   .qa-card.pulse:hover { background: var(--pulse-bg); border-color: rgba(255,184,48,0.4); }
   .qa-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.08em; margin-bottom: 2px; }
   .qa-role { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── TOAST NOTIFICATIONS ── */
+  .toast-container {
+    position: fixed; top: 20px; right: 20px; z-index: 1000;
+    display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+  }
+  .toast {
+    background: var(--surface2); border: 1px solid var(--border-bright);
+    border-radius: 10px; padding: 11px 16px;
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.03em;
+    color: var(--text); display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5); pointer-events: all;
+    max-width: 300px; animation: toast-in 0.25s ease forwards;
+  }
+  .toast.success { border-color: rgba(127,255,110,0.4); }
+  .toast.error { border-color: rgba(239,68,68,0.4); }
+  .toast.info { border-color: rgba(0,229,255,0.3); }
+  .toast.warning { border-color: rgba(255,184,48,0.4); }
+  .toast-icon { font-size: 13px; flex-shrink: 0; }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateX(20px) scale(0.97); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes toast-out {
+    from { opacity: 1; transform: translateX(0) scale(1); }
+    to { opacity: 0; transform: translateX(20px) scale(0.97); }
+  }
+  .toast.removing { animation: toast-out 0.2s ease forwards; }
+
+  /* ── CONFIRM MODAL ── */
+  .confirm-backdrop {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(7,7,8,0.7); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .confirm-backdrop.open { opacity: 1; pointer-events: all; }
+  .confirm-card {
+    background: #0e1117; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 28px 24px; max-width: 360px; width: 100%;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    transform: translateY(12px) scale(0.97);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .confirm-backdrop.open .confirm-card { transform: translateY(0) scale(1); }
+  .confirm-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px;
+    letter-spacing: 0.02em; margin-bottom: 8px;
+  }
+  .confirm-body {
+    font-size: 11px; color: var(--muted); line-height: 1.7;
+    letter-spacing: 0.03em; margin-bottom: 20px;
+  }
+  .confirm-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .confirm-cancel {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); background: transparent;
+    border: 1px solid var(--border); border-radius: 7px;
+    padding: 8px 16px; cursor: pointer; transition: all 0.15s;
+  }
+  .confirm-cancel:hover { color: var(--text); border-color: var(--border-bright); }
+  .confirm-ok {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg);
+    background: #ef4444; border: none; border-radius: 7px;
+    padding: 8px 16px; cursor: pointer; transition: all 0.15s;
+  }
+  .confirm-ok:hover { background: #f87171; }
+
+  /* ── MOBILE HAMBURGER ── */
+  .mobile-menu-btn {
+    display: none; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    border: 1px solid var(--border); background: var(--surface2); cursor: pointer;
+  }
+  .mobile-menu-btn span {
+    display: block; width: 15px; height: 1.5px; background: var(--text);
+    box-shadow: 0 5px 0 var(--text), 0 -5px 0 var(--text);
+    transition: all 0.2s;
+  }
+
+  /* ── SIDEBAR OVERLAY ── */
+  .sidebar-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 49;
+    backdrop-filter: blur(2px);
+  }
+  .sidebar-overlay.visible { display: block; }
+
+  /* ── REGEN + EXPORT BUTTONS ── */
+  .regen-btn, .export-btn {
+    display: flex; align-items: center; gap: 5px;
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); background: transparent; border: 1px solid var(--border);
+    border-radius: 4px; padding: 4px 10px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .regen-btn:hover, .export-btn:hover {
+    background: var(--surface2); color: var(--text); border-color: var(--border-bright);
+  }
+
+  /* ── STREAMING CURSOR ── */
+  .streaming-cursor {
+    display: inline-block; width: 2px; height: 13px;
+    background: currentColor; margin-left: 2px; vertical-align: middle;
+    animation: blink 0.75s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── EXPORT SIDEBAR BTN ── */
+  .export-chat-btn {
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); background: transparent; border: none;
+    cursor: pointer; padding: 0; transition: color 0.15s;
+  }
+  .export-chat-btn:hover { color: var(--text); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .mobile-menu-btn { display: flex; }
+
+    .sidebar {
+      position: fixed; left: -280px; top: 0; bottom: 0;
+      z-index: 50; width: 280px;
+      transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .sidebar.open {
+      left: 0;
+      box-shadow: 8px 0 40px rgba(0,0,0,0.5);
+    }
+
+    .chat-area { width: 100%; min-width: 0; }
+
+    .chat-header { padding: 14px 16px; gap: 10px; }
+    .chat-header-name { font-size: 14px; }
+    .chat-header-desc { font-size: 10px; }
+    .session-badge { display: none; }
+    .voice-panel-btn span:not(.vpb-waves) { display: none; }
+
+    .messages { padding: 14px 16px; gap: 14px; }
+    .msg-body { max-width: calc(100vw - 72px); }
+
+    .input-area { padding: 10px 12px 18px; }
+    .input-hint { display: none; }
+
+    .plans-grid { grid-template-columns: 1fr; }
+
+    .voice-modal-backdrop {
+      padding: 0; align-items: flex-end; justify-content: center;
+    }
+    .voice-modal { width: 100%; border-radius: 20px 20px 0 0; }
+
+    .paywall-card { padding: 24px 20px; }
+    .paywall-title { font-size: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .quiz-wrap { padding: 0 16px; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .result-agents-grid { grid-template-columns: 1fr; }
+    .welcome-agents { flex-wrap: wrap; justify-content: center; }
+    .auth-card { padding: 0 16px; }
+    .toast-container { top: 12px; right: 12px; left: 12px; }
+    .toast { max-width: 100%; }
+  }
 </style>
 </head>
 <body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-backdrop" id="confirm-modal">
+  <div class="confirm-card">
+    <div class="confirm-title" id="confirm-title">Are you sure?</div>
+    <div class="confirm-body" id="confirm-body"></div>
+    <div class="confirm-actions">
+      <button class="confirm-cancel" id="confirm-cancel-btn">Cancel</button>
+      <button class="confirm-ok" id="confirm-ok-btn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- ═══ AUTH SCREEN ═══ -->
 <div class="auth-screen" id="auth-screen">
@@ -1379,7 +1574,13 @@
       </div>
     </div>
 
-    <div class="sidebar-footer">ORBIT © 2026 — ALL AGENTS ONLINE</div>
+    <div class="sidebar-footer" style="display:flex;align-items:center;justify-content:space-between;">
+      <span>ORBIT © 2026</span>
+      <button class="export-chat-btn" onclick="exportConversation()" title="Export conversation">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Export
+      </button>
+    </div>
     <div class="usage-bar-wrap">
       <div class="usage-bar-top">
         <span class="usage-plan-name" id="usage-plan-name">Free Plan</span>
@@ -1392,6 +1593,7 @@
 
   <div class="chat-area">
     <div class="chat-header">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Menu"><span></span></button>
       <div class="chat-header-icon" id="header-icon">NOV</div>
       <div class="chat-header-meta">
         <div class="chat-header-name" id="header-name">NOVA</div>
@@ -1442,15 +1644,13 @@ function switchAuthTab(tab, btn) {
 }
 
 function handleGoogleAuth() {
-  // Placeholder — wire up Firebase/Supabase Google OAuth here
-  alert('Google auth coming soon! For now, continue as guest.');
+  showToast('Google sign-in coming soon — continue as guest for now.', 'info');
 }
 
 function handleEmailLogin() {
   const email = document.getElementById('login-email').value.trim();
   const pass = document.getElementById('login-password').value;
-  if (!email || !pass) { alert('Please enter your email and password.'); return; }
-  // Placeholder — wire up your auth backend here
+  if (!email || !pass) { showToast('Please enter your email and password.', 'error'); return; }
   userProfile.name = email.split('@')[0];
   showOnboarding();
 }
@@ -1459,8 +1659,8 @@ function handleEmailSignup() {
   const username = document.getElementById('signup-username').value.trim();
   const email = document.getElementById('signup-email').value.trim();
   const pass = document.getElementById('signup-password').value;
-  if (!username || !email || !pass) { alert('Please fill in all fields.'); return; }
-  // Placeholder — wire up your auth backend here
+  if (!username || !email || !pass) { showToast('Please fill in all fields.', 'error'); return; }
+  if (pass.length < 6) { showToast('Password must be at least 6 characters.', 'error'); return; }
   userProfile.name = username;
   showOnboarding();
 }
@@ -1507,15 +1707,105 @@ function toggleMemory() {
 }
 
 function clearMemory() {
-  if (!confirm('Clear conversation history for all agents? This cannot be undone.')) return;
-  conversations = { nova: [], vibe: [], flux: [], pulse: [] };
-  renderMessages();
+  showConfirm(
+    'Clear All History',
+    'This will delete conversation history for all 4 agents. This cannot be undone.',
+    () => {
+      conversations = { nova: [], vibe: [], flux: [], pulse: [] };
+      saveConversations();
+      renderMessages();
+      showToast('Conversation history cleared.', 'success');
+    }
+  );
 }
 
 // Init memory switch as ON
 window.addEventListener('load', () => {
   document.getElementById('memory-switch').classList.add('on');
+  loadConversations();
 });
+
+// ── TOAST ──
+function showToast(message, type = 'info', duration = 3200) {
+  const icons = { success: '✓', error: '✕', info: '◈', warning: '⚡' };
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span class="toast-icon">${icons[type] || '◈'}</span><span>${message}</span>`;
+  container.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('removing');
+    setTimeout(() => el.remove(), 200);
+  }, duration);
+}
+
+// ── CONFIRM MODAL ──
+let confirmResolve = null;
+function showConfirm(title, body, onOk) {
+  document.getElementById('confirm-title').textContent = title;
+  document.getElementById('confirm-body').textContent = body;
+  const modal = document.getElementById('confirm-modal');
+  modal.classList.add('open');
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    modal.classList.remove('open');
+    if (onOk) onOk();
+  };
+  document.getElementById('confirm-cancel-btn').onclick = () => modal.classList.remove('open');
+}
+
+// ── SIDEBAR ──
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('visible');
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('visible');
+}
+
+// ── LOCALSTORAGE ──
+function saveConversations() {
+  try {
+    localStorage.setItem('orbit_conversations', JSON.stringify(conversations));
+    localStorage.setItem('orbit_profile', JSON.stringify(userProfile));
+    localStorage.setItem('orbit_plan', currentPlan);
+  } catch(e) { /* storage full */ }
+}
+
+function loadConversations() {
+  try {
+    const saved = localStorage.getItem('orbit_conversations');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      Object.keys(conversations).forEach(k => {
+        if (parsed[k] && Array.isArray(parsed[k])) conversations[k] = parsed[k];
+      });
+    }
+    const plan = localStorage.getItem('orbit_plan');
+    if (plan && PLANS[plan]) currentPlan = plan;
+  } catch(e) {}
+}
+
+// ── EXPORT CONVERSATION ──
+function exportConversation() {
+  const msgs = conversations[activeAgent];
+  if (!msgs.length) { showToast('No messages to export yet.', 'warning'); return; }
+  const a = AGENTS[activeAgent];
+  const lines = [`ORBIT AI Agency — ${a.name} Conversation`, `Exported: ${new Date().toLocaleString()}`, '─'.repeat(50), ''];
+  msgs.forEach(m => {
+    lines.push(m.role === 'user' ? `YOU:` : `${a.name}:`);
+    lines.push(m.content);
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `orbit-${activeAgent}-${Date.now()}.txt`;
+  link.click();
+  URL.revokeObjectURL(url);
+  showToast('Conversation exported.', 'success');
+}
 
 // ── QUIZ ──
 function showQuickStart() {
@@ -1823,6 +2113,10 @@ function renderMessages() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             Copy
           </button>
+          ${i === msgs.length - 1 ? `<button class="regen-btn" onclick="regenerateMessage(${i})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="10" height="10"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            Retry
+          </button>` : ''}
         </div>
       </div>
     </div>`;
@@ -1874,53 +2168,128 @@ async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
 
-  // Check message limit
-  const { blocked, used, limit } = checkLimit();
-  if (blocked) {
-    showPaywall();
-    return;
-  }
+  const { blocked } = checkLimit();
+  if (blocked) { showPaywall(); return; }
 
   input.value = '';
   input.style.height = 'auto';
-  isLoading = true;
-  document.getElementById('send-btn').disabled = true;
   conversations[activeAgent].push({ role: 'user', content: text });
   renderMessages();
+  await streamResponse();
+  document.getElementById('chat-input').focus();
+}
+
+async function regenerateMessage(idx) {
+  if (isLoading) return;
+  const msgs = conversations[activeAgent];
+  if (!msgs[idx] || msgs[idx].role !== 'assistant') return;
+  conversations[activeAgent] = msgs.slice(0, idx);
+  renderMessages();
+  await streamResponse();
+}
+
+async function streamResponse() {
+  if (isLoading) return;
+  isLoading = true;
+  document.getElementById('send-btn').disabled = true;
 
   const container = document.getElementById('messages');
   const a = AGENTS[activeAgent];
+  const agentKey = activeAgent;
+
+  // Thinking indicator
   const think = document.createElement('div');
   think.className = 'msg';
   think.innerHTML = `<div class="msg-icon ${a.iconClass}">${a.abbr}</div><div class="msg-body"><div class="thinking"><div class="thinking-dots"><span></span><span></span><span></span></div>${a.name} is thinking</div></div>`;
   container.appendChild(think);
   container.scrollTop = container.scrollHeight;
 
+  const lastUserMsg = conversations[agentKey].filter(m => m.role === 'user').slice(-1)[0]?.content || '';
+
   try {
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        system: AGENTS[activeAgent].systemPrompt(),
+        system: AGENTS[agentKey].systemPrompt(),
         messages: memoryEnabled
-          ? conversations[activeAgent].map(m => ({ role: m.role, content: m.content }))
-          : [{ role: 'user', content: text }]
+          ? conversations[agentKey].map(m => ({ role: m.role, content: m.content }))
+          : [{ role: 'user', content: lastUserMsg }]
       })
     });
-    const data = await res.json();
-    const reply = data.reply || data.error || 'Something went wrong. Try again.';
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      think.remove();
+      conversations[agentKey].push({ role: 'assistant', content: err.error || 'Something went wrong. Try again.' });
+      renderMessages();
+      return;
+    }
+
+    const contentType = res.headers.get('content-type') || '';
+
+    if (contentType.includes('text/event-stream')) {
+      // ── Streaming path ──
+      think.remove();
+      const msgIdx = conversations[agentKey].length;
+      conversations[agentKey].push({ role: 'assistant', content: '', streaming: true });
+      renderMessages();
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const data = line.slice(6).trim();
+          if (data === '[DONE]') continue;
+          try {
+            const parsed = JSON.parse(data);
+            if (parsed.error) {
+              conversations[agentKey][msgIdx].content = parsed.error;
+            } else if (parsed.chunk) {
+              conversations[agentKey][msgIdx].content += parsed.chunk;
+              // Direct DOM update for performance — skip full re-render on every chunk
+              const bubbles = container.querySelectorAll('.msg:not(.user) .msg-bubble');
+              const lastBubble = bubbles[bubbles.length - 1];
+              if (lastBubble) {
+                lastBubble.innerHTML = formatMsg(conversations[agentKey][msgIdx].content) + '<span class="streaming-cursor"></span>';
+              }
+              container.scrollTop = container.scrollHeight;
+            }
+          } catch(e) {}
+        }
+      }
+
+      delete conversations[agentKey][msgIdx].streaming;
+      renderMessages();
+
+    } else {
+      // ── Non-streaming fallback ──
+      const data = await res.json();
+      const reply = data.reply || data.error || 'Something went wrong. Try again.';
+      think.remove();
+      conversations[agentKey].push({ role: 'assistant', content: reply });
+      renderMessages();
+    }
+
+  } catch(err) {
     think.remove();
-    conversations[activeAgent].push({ role: 'assistant', content: reply });
-  } catch {
-    think.remove();
-    conversations[activeAgent].push({ role: 'assistant', content: 'Connection error. Please try again.' });
+    conversations[agentKey].push({ role: 'assistant', content: 'Connection error. Please try again.' });
+    renderMessages();
   }
 
-  renderMessages();
   isLoading = false;
   document.getElementById('send-btn').disabled = false;
   updateUsageBar();
-  input.focus();
+  saveConversations();
 }
 
 // ══════════════════════════════════════════
@@ -1966,11 +2335,11 @@ function closePaywall() {
 }
 
 function selectPlan(plan) {
-  // Placeholder — wire up Stripe here
   currentPlan = plan;
+  localStorage.setItem('orbit_plan', plan);
   closePaywall();
   updateUsageBar();
-  alert(`✅ ${PLANS[plan].name} plan activated! (Connect Stripe to charge $${PLANS[plan].price}/mo)`);
+  showToast(`${PLANS[plan].name} plan activated!`, 'success');
 }
 
 // ══════════════════════════════════════════
