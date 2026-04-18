@@ -1,7 +1,12 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/chat", "destination": "/api/chat.js" }
+    { "source": "/api/chat",        "destination": "/api/chat.js" },
+    { "source": "/api/orchestrate", "destination": "/api/orchestrate.js" },
+    { "source": "/api/post",        "destination": "/api/post.js" },
+    { "source": "/api/ads",         "destination": "/api/ads.js" },
+    { "source": "/dashboard",       "destination": "/dashboard.html" },
+    { "source": "/command",         "destination": "/dashboard.html" }
   ],
   "headers": [
     {
