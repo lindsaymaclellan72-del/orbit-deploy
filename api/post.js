@@ -4,7 +4,7 @@
 import { AGENTS, SPECIALIST_MODEL } from './lib/agents.js';
 import { askSpecialist } from './lib/claude.js';
 import { publishTo } from './lib/platforms.js';
-import { savePost } from './lib/store.js';
+import { savePost, getLatestNicheAnalysis } from './lib/store.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     platform = 'instagram',
     format = 'static',
     topic,
-    niche = 'lifestyle',
+    niche = 'hip hop / music production / songwriting',
     publish = false,
     media_url
   } = req.body || {};
@@ -27,16 +27,18 @@ export default async function handler(req, res) {
   if (!topic) return res.status(400).json({ error: 'topic is required' });
 
   try {
+    const niche_intel = getLatestNicheAnalysis();
     const { json, raw } = await askSpecialist({
       model: SPECIALIST_MODEL,
-      system: AGENTS.VIBE.systemPrompt({ platform, niche }),
+      system: AGENTS.VIBE.systemPrompt({ platform, niche, niche_intel }),
       prompt: `Create a ${format} for ${platform} about "${topic}". Return JSON only.`
     });
     const post = savePost({
       ...(json || { caption: raw }),
       platform, format, topic, niche,
       media_url: media_url || null,
-      status: publish ? 'publishing' : 'draft'
+      status: publish ? 'publishing' : 'draft',
+      used_niche_intel_id: niche_intel?.id || null
     });
 
     if (!publish) return res.status(200).json({ post });

@@ -22,6 +22,8 @@
     --vibe: #ff6b9d;
     --flux: #7fff6e;
     --pulse: #ffb830;
+    --muse: #ff6bff;
+    --canvas: #7c4dff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -78,12 +80,13 @@
 
   .agents {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
     padding: 16px 20px;
     border-bottom: 1px solid var(--border);
   }
-  @media (max-width: 700px) { .agents { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 980px) { .agents { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 560px) { .agents { grid-template-columns: repeat(2, 1fr); } }
   .agent {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -94,11 +97,13 @@
   .agent-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
   .agent-name { font-weight: 600; font-size: 12px; letter-spacing: 0.03em; }
   .agent-role { color: var(--muted); font-size: 10px; margin-top: 3px; }
-  .agent.echo  .agent-dot { background: var(--echo); box-shadow: 0 0 10px var(--echo); }
-  .agent.nova  .agent-dot { background: var(--nova); box-shadow: 0 0 10px var(--nova); }
-  .agent.vibe  .agent-dot { background: var(--vibe); box-shadow: 0 0 10px var(--vibe); }
-  .agent.flux  .agent-dot { background: var(--flux); box-shadow: 0 0 10px var(--flux); }
-  .agent.pulse .agent-dot { background: var(--pulse); box-shadow: 0 0 10px var(--pulse); }
+  .agent.echo   .agent-dot { background: var(--echo);   box-shadow: 0 0 10px var(--echo); }
+  .agent.muse   .agent-dot { background: var(--muse);   box-shadow: 0 0 10px var(--muse); }
+  .agent.nova   .agent-dot { background: var(--nova);   box-shadow: 0 0 10px var(--nova); }
+  .agent.vibe   .agent-dot { background: var(--vibe);   box-shadow: 0 0 10px var(--vibe); }
+  .agent.canvas .agent-dot { background: var(--canvas); box-shadow: 0 0 10px var(--canvas); }
+  .agent.flux   .agent-dot { background: var(--flux);   box-shadow: 0 0 10px var(--flux); }
+  .agent.pulse  .agent-dot { background: var(--pulse);  box-shadow: 0 0 10px var(--pulse); }
 
   label {
     display: block;
@@ -246,8 +251,10 @@
   <div class="panel">
     <div class="agents">
       <div class="agent echo"><span class="agent-dot"></span><div class="agent-name">ECHO</div><div class="agent-role">Orchestrator</div></div>
+      <div class="agent muse"><span class="agent-dot"></span><div class="agent-name">MUSE</div><div class="agent-role">Niche Intel</div></div>
       <div class="agent nova"><span class="agent-dot"></span><div class="agent-name">NOVA</div><div class="agent-role">Strategist</div></div>
       <div class="agent vibe"><span class="agent-dot"></span><div class="agent-name">VIBE</div><div class="agent-role">Creator</div></div>
+      <div class="agent canvas"><span class="agent-dot"></span><div class="agent-name">CANVAS</div><div class="agent-role">Designer</div></div>
       <div class="agent flux"><span class="agent-dot"></span><div class="agent-name">FLUX</div><div class="agent-role">Analyst</div></div>
       <div class="agent pulse"><span class="agent-dot"></span><div class="agent-name">PULSE</div><div class="agent-role">Media Buyer</div></div>
     </div>
@@ -258,10 +265,10 @@
     </div>
 
     <div class="chat-log" id="chat-log">
-      <div class="msg echo"><b>ECHO:</b> Hey — I'm the orchestrator. Tell me what you need. Examples:
-— "Plan a 14-day launch for my new skincare line"
-— "Write 3 Instagram posts about morning routines and publish the best one"
-— "Launch a $30/day engagement ad on Meta"</div>
+      <div class="msg echo"><b>ECHO:</b> I'm the orchestrator for your music content. Tell me what you need. Examples:
+— "Analyze @kennybeats and @internetmoney, then write 3 Reels about beat selling"
+— "Plan a 14-day push for my new beat tape — IG + TikTok"
+— "Make a TikTok about why 95% of beats sound the same, design the cover, draft only"</div>
     </div>
 
     <div class="composer">
@@ -276,17 +283,17 @@
 
     <div class="panel-body">
       <label>Name</label>
-      <input id="p-name" placeholder="Alex" value="Alex" />
+      <input id="p-name" placeholder="Your artist / producer name" value="" />
       <div class="row">
         <div>
           <label>Niche</label>
-          <input id="p-niche" value="skincare" />
+          <input id="p-niche" value="hip hop / music production / songwriting" />
         </div>
         <div>
           <label>Primary Platform</label>
           <select id="p-platform">
             <option value="instagram">Instagram</option>
-            <option value="tiktok">TikTok</option>
+            <option value="tiktok" selected>TikTok</option>
             <option value="twitter">X / Twitter</option>
             <option value="linkedin">LinkedIn</option>
             <option value="youtube">YouTube</option>
@@ -296,17 +303,18 @@
       <div class="row">
         <div>
           <label>Goal</label>
-          <input id="p-goal" value="grow to 50k followers" />
+          <input id="p-goal" value="grow audience + drive Spotify/beat-store traffic" />
         </div>
         <div>
           <label>Ad Budget ($/mo)</label>
-          <input id="p-budget" type="number" value="600" />
+          <input id="p-budget" type="number" value="200" />
         </div>
       </div>
     </div>
 
     <div class="tabs">
       <div class="tab active" data-tab="feed">Posts</div>
+      <div class="tab" data-tab="intel">Niche Intel</div>
       <div class="tab" data-tab="trace">Agent Trace</div>
       <div class="tab" data-tab="quick">Quick Actions</div>
     </div>
@@ -317,6 +325,25 @@
         <div id="feed-list"></div>
       </div>
 
+      <div class="tab-panel" id="tab-intel">
+        <label>Competitor handles (comma-separated)</label>
+        <input id="i-handles" placeholder="@kennybeats, @internetmoney, @charlieputh, @prodbysamhoody" />
+
+        <label>Top posts from those competitors (one per line: <code>@handle | platform | format | caption | hashtags | views</code>)</label>
+        <textarea id="i-samples" rows="6" placeholder="@kennybeats | tiktok | reel | this 808 trick took me 4 years to figure out | #beatmaker,#flstudio | 2400000
+@internetmoney | instagram | reel | how we made the placement that paid for my house | #placement,#beatmaking | 890000"></textarea>
+
+        <label>What pattern should MUSE focus on?</label>
+        <input id="i-focus" placeholder="viral hooks, best posting times, tiktok audio, hashtag clusters" />
+
+        <button id="intel-run-btn">Run MUSE Analysis</button>
+        <button id="intel-attach-btn" class="ghost" style="margin-left:8px;">Attach to next chat</button>
+
+        <div style="height:16px;"></div>
+        <div id="intel-empty" class="empty">No analysis yet. Paste 3-5 competitors and 5-10 of their top posts, then run MUSE.</div>
+        <div id="intel-list"></div>
+      </div>
+
       <div class="tab-panel" id="tab-trace">
         <div id="trace-empty" class="empty">Tool calls will appear here once ECHO delegates work.</div>
         <div id="trace-list"></div>
@@ -324,7 +351,7 @@
 
       <div class="tab-panel" id="tab-quick">
         <label>Post topic</label>
-        <input id="q-topic" placeholder="5 skincare myths" />
+        <input id="q-topic" placeholder="why most beats sound the same in 2025" />
         <div class="row">
           <div>
             <label>Format</label>
@@ -340,8 +367,8 @@
           <div>
             <label>Publish now?</label>
             <select id="q-publish">
-              <option value="false">Draft only</option>
-              <option value="true">Publish</option>
+              <option value="false" selected>Draft only</option>
+              <option value="true">Publish (after approval)</option>
             </select>
           </div>
         </div>
@@ -426,6 +453,56 @@
     }
   }
 
+  function renderNicheAnalyses(list) {
+    const wrap = $('intel-list');
+    const empty = $('intel-empty');
+    if (!list || !list.length) return;
+    empty.style.display = 'none';
+    wrap.innerHTML = '';
+    for (const a of [...list].reverse()) {
+      const el = document.createElement('div');
+      el.className = 'feed-item';
+      const hooks = (a.winning_hooks || []).slice(0, 5).map(h => '• ' + (typeof h === 'string' ? h : JSON.stringify(h))).join('\n');
+      const tags = a.hashtag_clusters
+        ? `broad: ${(a.hashtag_clusters.broad || []).slice(0,5).join(' ')}\nniche: ${(a.hashtag_clusters.niche || []).slice(0,5).join(' ')}\nmicro: ${(a.hashtag_clusters.micro || []).slice(0,5).join(' ')}`
+        : '';
+      el.innerHTML = `
+        <div class="feed-meta">
+          <span>MUSE · ${escapeHtml(a.handles ? a.handles.join(', ') : '')}</span>
+          <span class="badge ok">${escapeHtml(a.id || 'analysis')}</span>
+        </div>
+        <div class="feed-caption">${escapeHtml(a.summary || '(no summary)')}</div>
+        ${hooks ? `<pre class="trace-item" style="margin-top:8px;white-space:pre-wrap;">${escapeHtml(hooks)}</pre>` : ''}
+        ${tags ? `<pre class="trace-item" style="margin-top:8px;white-space:pre-wrap;">${escapeHtml(tags)}</pre>` : ''}
+      `;
+      wrap.appendChild(el);
+    }
+  }
+
+  function parseSampleLines(text) {
+    return text.split(/\n+/).map(line => {
+      const parts = line.split('|').map(s => s.trim());
+      if (parts.length < 4) return null;
+      const [handle, platform, format, caption, hashtags = '', views = ''] = parts;
+      return {
+        handle,
+        platform: platform.toLowerCase(),
+        format,
+        caption,
+        hashtags: hashtags.split(/[,\s]+/).filter(Boolean),
+        views: Number(String(views).replace(/[^0-9]/g, '')) || undefined
+      };
+    }).filter(Boolean);
+  }
+
+  function competitorPayload() {
+    const handles = $('i-handles').value.split(',').map(s => s.trim()).filter(Boolean);
+    const sample_posts = parseSampleLines($('i-samples').value);
+    const focus = $('i-focus').value.trim() || undefined;
+    if (!handles.length) return null;
+    return { handles, sample_posts, focus };
+  }
+
   function renderPosts(posts) {
     const list = $('feed-list');
     const empty = $('feed-empty');
@@ -436,17 +513,30 @@
       const tags = Array.isArray(p.hashtags) ? p.hashtags.map(t => '#' + t.replace(/^#/,'')).join(' ') : '';
       const el = document.createElement('div');
       el.className = 'feed-item';
+      const mediaBlock = p.media_url
+        ? `<img src="${escapeHtml(p.media_url)}" alt="design preview" style="width:100%;border-radius:8px;margin-top:8px;border:1px solid var(--border);" />`
+        : '';
+      const editLink = p.design_edit_url
+        ? `<a href="${escapeHtml(p.design_edit_url)}" target="_blank" style="display:inline-block;margin-top:6px;color:var(--canvas);font-size:11px;">→ open in Canva</a>`
+        : '';
+      const intelMark = p.used_niche_intel_id
+        ? `<span class="badge" style="margin-left:6px;color:var(--muse);border-color:rgba(255,107,255,0.3);">MUSE-informed</span>`
+        : '';
       el.innerHTML = `
         <div class="feed-meta">
-          <span>${escapeHtml(p.platform || '')} · ${escapeHtml(p.format || '')}</span>
+          <span>${escapeHtml(p.platform || '')} · ${escapeHtml(p.format || '')}${intelMark}</span>
           <span class="badge ${p.status === 'published' ? 'ok' : 'warn'}">${escapeHtml(p.status || 'draft')}</span>
         </div>
         <div class="feed-caption">${escapeHtml(p.hook || '')}${p.hook ? '<br><br>' : ''}${escapeHtml(p.caption || '')}</div>
         ${tags ? `<div class="feed-tags">${escapeHtml(tags)}</div>` : ''}
+        ${mediaBlock}
+        ${editLink}
       `;
       list.appendChild(el);
     }
   }
+
+  let attachCompetitorsNext = false;
 
   async function send() {
     const text = input.value.trim();
@@ -458,11 +548,21 @@
     sendBtn.disabled = true;
     const thinking = appendMsg('echo', '<b>ECHO:</b> <i>thinking...</i>');
 
+    const body = { message: text, profile: profile(), history };
+    if (attachCompetitorsNext) {
+      const c = competitorPayload();
+      if (c) {
+        body.competitors = c;
+        appendMsg('tool', `<b>MUSE pre-seed</b> attached: ${escapeHtml(c.handles.join(', '))}`);
+      }
+      attachCompetitorsNext = false;
+    }
+
     try {
       const res = await fetch('/api/orchestrate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, profile: profile(), history })
+        body: JSON.stringify(body)
       });
       const data = await res.json();
       thinking.remove();
@@ -479,6 +579,7 @@
         }
         renderTrace(data.trace);
         renderPosts(data.posts);
+        renderNicheAnalyses(data.niche_analyses);
       }
     } catch (err) {
       thinking.remove();
@@ -490,8 +591,10 @@
 
   function agentForTool(name) {
     return ({
+      analyze_competitors: 'MUSE',
       plan_campaign: 'NOVA',
       create_post: 'VIBE',
+      design_visual: 'CANVAS',
       analyze_performance: 'FLUX',
       launch_ad_campaign: 'PULSE',
       schedule_post: 'ECHO',
@@ -569,14 +672,48 @@
     } finally { btn.disabled = false; }
   });
 
+  $('intel-run-btn').addEventListener('click', async () => {
+    const btn = $('intel-run-btn');
+    const c = competitorPayload();
+    if (!c) { alert('Add at least one competitor handle.'); return; }
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/orchestrate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Run MUSE on these competitors and return only the analysis summary in plain text (no tools beyond analyze_competitors).`,
+          profile: profile(),
+          history: [],
+          competitors: c
+        })
+      });
+      const data = await res.json();
+      if (data.error) { alert(data.error); return; }
+      appendMsg('tool', `<b>MUSE</b> analyzed ${escapeHtml(String(c.handles.length))} handles · ${escapeHtml(String((c.sample_posts || []).length))} sample posts`);
+      renderTrace(data.trace);
+      renderNicheAnalyses(data.niche_analyses);
+      document.querySelector('[data-tab="intel"]').click();
+    } finally { btn.disabled = false; }
+  });
+
+  $('intel-attach-btn').addEventListener('click', () => {
+    const c = competitorPayload();
+    if (!c) { alert('Add at least one competitor handle.'); return; }
+    attachCompetitorsNext = true;
+    appendMsg('tool', `<b>MUSE</b> will be pre-seeded on your next message: ${escapeHtml(c.handles.join(', '))}`);
+  });
+
   $('clear-btn').addEventListener('click', (e) => {
     e.preventDefault();
     log.innerHTML = '';
     history.length = 0;
     $('feed-list').innerHTML = '';
     $('trace-list').innerHTML = '';
+    $('intel-list').innerHTML = '';
     $('feed-empty').style.display = '';
     $('trace-empty').style.display = '';
+    $('intel-empty').style.display = '';
     appendMsg('echo', '<b>ECHO:</b> Fresh session. What do you want to ship?');
   });
 </script>
